@@ -1,0 +1,37 @@
+﻿@model OnlineShop.Models.Role
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Chi tiết vai trò</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên vai trò
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoleName)
+        </dd>
+        <dt>
+            Trạng thái
+        </dt>
+        <dd>
+            @if(Model.IsDeleted == 0)
+            {
+                <p>Khả dụng</p>
+            }
+            @if(Model.IsDeleted == 1)
+            {
+                <p>Không khả dụng</p>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class = "btn btn-primary" asp-action="Edit" asp-route-id="@Model.RoleId">Chỉnh sửa</a> |
+    <a asp-action="Index">Trở về danh sách</a>
+</div>

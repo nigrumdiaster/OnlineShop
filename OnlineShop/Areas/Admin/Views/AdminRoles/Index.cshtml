@@ -1,0 +1,63 @@
+﻿@model IEnumerable<OnlineShop.Models.Role>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
+	<link href="~/AdminAssets/css/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<h2>Quản lý quyền truy cập</h2>
+
+<p>
+    <a class="btn btn-success" asp-area="Admin" asp-controller="AdminRoles" asp-action="Create">Thêm</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                STT
+            </th>
+            <th>
+                Tên vai trò
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoleId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoleName)
+                    </td>
+                    <td>
+                        @if (item.IsDeleted == 0)
+                        {
+                            <p>Khả dụng</p>
+                        }
+                        @if (item.IsDeleted == 1) {
+                            <p>Không khả dụng</p>
+                        }
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-area="Admin" asp-controller="AdminRoles" asp-action="Edit" asp-route-id="@item.RoleId">Chỉnh sửa</a> |
+                        <a class="btn btn-warning" asp-area="Admin" asp-controller="AdminRoles" asp-action="Details" asp-route-id="@item.RoleId">Chi tiết</a> |
+                        <a class="btn btn-danger" asp-area="Admin" asp-controller="AdminRoles" asp-action="Delete" asp-route-id="@item.RoleId">Xóa</a>
+                    </td>
+                </tr>
+        }
+    </tbody>
+</table>
