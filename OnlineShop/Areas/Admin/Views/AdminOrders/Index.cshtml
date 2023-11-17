@@ -1,0 +1,72 @@
+﻿@model IEnumerable<OnlineShop.Models.Order>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Quản lý đơn hàng</h2>
+
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Người đặt
+            </th>
+            <th>
+                Người nhận
+            </th>
+            <th>
+                Tình trạng thanh toán
+            </th>
+            <th>
+                Tình trạng
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Receiver)
+            </td>
+            @if (item.IsPay == 0)
+            {
+                <td>Chưa thanh toán</td>
+            }
+            @if (item.IsPay == 1)
+            {
+                <td>Đã thanh toán</td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.Status.StatusName)
+            </td>
+            @if(item.Status.StatusName == "Đang xử lý")
+            {
+                <td>
+                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.OrderId">Chi tiết</a> |
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.OrderId">Xác nhận</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.OrderId">Từ chối</a>
+                </td>
+            }
+            @if(item.Status.StatusName == "Đang giao" || item.Status.StatusName == "Đã nhận" || item.Status.StatusName == "Từ chối"){
+                <td>
+                    <a class="btn btn-warning" asp-action="Details" asp-route-id="@item.OrderId">Chi tiết</a>
+                </td>
+            }
+        </tr>
+}
+    </tbody>
+</table>
+@Html.PagedListPager((IPagedList) Model, page => Url.Action("Index", new {page = page }), 
+new PagedListRenderOptions {
+    LiElementClasses = new string[] {"page-item"},
+    PageClasses = new string[] {"page-link"}
+})

@@ -1,0 +1,115 @@
+﻿@model OnlineShop.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Chỉnh sửa sản phẩm</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductId" />
+            <div class="form-group">
+               <label class="control-label">Tên sản phẩm</label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Mô tả</label>
+                <input asp-for="Decription" class="form-control" />
+                <span asp-validation-for="Decription" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Giá</label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Giá khuyến mãi</label>
+                <input asp-for="PromotionalPrice" class="form-control" />
+                <span asp-validation-for="PromotionalPrice" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Số lượng</label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Đã bán</label>
+                <input asp-for="Sold" class="form-control" />
+                <span asp-validation-for="Sold" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Tình trạng</label>
+                <select asp-for="IsActive" class="form-control">
+                    <option value = "0">Ngừng bán</option>
+                    <option value = "1">Đang bán</option>
+                </select>
+                <span asp-validation-for="IsActive" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Ảnh sản phẩm</label>
+                <input asp-for="Image" class="form-control" type="file"/>
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Danh mục</label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Style</label>
+                <select asp-for="StyleId" class="form-control" asp-items="ViewBag.StyleId"></select>
+                <span asp-validation-for="StyleId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Đánh giá</label>
+                <select asp-for="IsDeleted" class="form-control">
+                    <option value = "1">1 sao</option>
+                    <option value = "2">2 sao</option>
+                    <option value = "3">3 sao</option>
+                    <option value = "4">4 sao</option>
+                    <option value = "5">5 sao</option>
+                </select>
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Ngày tạo</label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Khả dụng</label>
+                <select asp-for="IsDeleted" class="form-control">
+                    <option value = "0">Khả dụng</option>
+                    <option value = "1">Bị cấm</option>
+                </select>
+                <span asp-validation-for="IsDeleted" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Lưu" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a asp-action="Index">Trở về danh sách</a>
+</div>
+

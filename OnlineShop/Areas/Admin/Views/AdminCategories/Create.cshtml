@@ -1,20 +1,21 @@
-﻿@model OnlineShop.Models.Role
+﻿@model OnlineShop.Models.Category
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Thêm vai trò</h2>
+<h2>Thêm danh mục</h2>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label class="control-label">Tên vai trò</label>
-                <input asp-for="RoleName" class="form-control" />
-                <span asp-validation-for="RoleName" class="text-danger"></span>
+                <label class="control-label">Tên danh mục</label>
+                <input asp-for="CategoryName" class="form-control" />
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
             </div>
             <br />
             <div class="form-group">
@@ -27,7 +28,7 @@
             </div>
             <br />
             <div class="form-group">
-                <input type="submit" value="Thêm" class="btn btn-success" />
+                <input type="submit" value="Thêm" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -11,22 +11,22 @@ using X.PagedList;
 namespace OnlineShop.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    public class AdminRolesController : Controller
+    public class AdminCategoriesController : Controller
     {
         private readonly OnlineShopContext _context;
 
-        public AdminRolesController(OnlineShopContext context)
+        public AdminCategoriesController(OnlineShopContext context)
         {
             _context = context;
         }
 
-        // GET: Admin/AdminRoles
+        // GET: Admin/AdminCategories
         public async Task<IActionResult> Index(int ?page)
         {
-            return View(_context.Roles.ToPagedList(page ?? 1, 5));
+            return View(_context.Categories.ToPagedList(page ?? 1, 5));
         }
 
-        // GET: Admin/AdminRoles/Details/5
+        // GET: Admin/AdminCategories/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,39 +34,39 @@ namespace OnlineShop.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles
-                .FirstOrDefaultAsync(m => m.RoleId == id);
-            if (role == null)
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(m => m.CategoryId == id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(category);
         }
 
-        // GET: Admin/AdminRoles/Create
+        // GET: Admin/AdminCategories/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Admin/AdminRoles/Create
+        // POST: Admin/AdminCategories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RoleId,RoleName,IsDeleted")] Role role)
+        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,IsDeleted")] Category category)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(role);
+                _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(role);
+            return View(category);
         }
 
-        // GET: Admin/AdminRoles/Edit/5
+        // GET: Admin/AdminCategories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +74,22 @@ namespace OnlineShop.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles.FindAsync(id);
-            if (role == null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
             {
                 return NotFound();
             }
-            return View(role);
+            return View(category);
         }
 
-        // POST: Admin/AdminRoles/Edit/5
+        // POST: Admin/AdminCategories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RoleId,RoleName,IsDeleted")] Role role)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,IsDeleted")] Category category)
         {
-            if (id != role.RoleId)
+            if (id != category.CategoryId)
             {
                 return NotFound();
             }
@@ -98,12 +98,12 @@ namespace OnlineShop.Areas.Admin.Controllers
             {
                 try
                 {
-                    _context.Update(role);
+                    _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RoleExists(role.RoleId))
+                    if (!CategoryExists(category.CategoryId))
                     {
                         return NotFound();
                     }
@@ -114,10 +114,10 @@ namespace OnlineShop.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(role);
+            return View(category);
         }
 
-        // GET: Admin/AdminRoles/Delete/5
+        // GET: Admin/AdminCategories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,30 +125,30 @@ namespace OnlineShop.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            var role = await _context.Roles
-                .FirstOrDefaultAsync(m => m.RoleId == id);
-            if (role == null)
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(m => m.CategoryId == id);
+            if (category == null)
             {
                 return NotFound();
             }
 
-            return View(role);
+            return View(category);
         }
 
-        // POST: Admin/AdminRoles/Delete/5
+        // POST: Admin/AdminCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var role = await _context.Roles.FindAsync(id);
-            _context.Roles.Remove(role);
+            var category = await _context.Categories.FindAsync(id);
+            _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RoleExists(int id)
+        private bool CategoryExists(int id)
         {
-            return _context.Roles.Any(e => e.RoleId == id);
+            return _context.Categories.Any(e => e.CategoryId == id);
         }
     }
 }

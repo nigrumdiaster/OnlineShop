@@ -1,21 +1,21 @@
-﻿@model OnlineShop.Models.Role
+﻿@model OnlineShop.Models.Category
 
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Xóa vai trò</h2>
+<h2>Xóa danh mục</h2>
 
 <div>
     <h4>Bạn có chắc chắn xóa không?</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            Tên vai trò
+            Tên danh mục
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.RoleName)
+            @Html.DisplayFor(model => model.CategoryName)
         </dd>
         <dt>
             Trạng thái
@@ -33,7 +33,7 @@
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="RoleId" />
+        <input type="hidden" asp-for="CategoryId" />
         <input type="submit" value="Xóa" class="btn btn-danger" /> |
         <a asp-action="Index">Trở về danh sách</a>
     </form>

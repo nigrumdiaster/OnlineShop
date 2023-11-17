@@ -1,0 +1,76 @@
+﻿@model IEnumerable<OnlineShop.Models.User>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Quản lý tài khoản</h2>
+
+<p>
+    <a class="btn btn-success" asp-action="Create">Tạo tài khoản</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Họ tên
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                SĐT
+            </th>
+            <th>
+                Trạng thái
+            </th>
+            <th>
+                Vai trò
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+                @if (item.IsDeleted == 0)
+                {
+                    <td>Hoạt động</td>
+                }
+                @if (item.IsDeleted == 1)
+                {
+                    <td>Bị khóa</td>
+                }
+                <td>
+                @Html.DisplayFor(modelItem => item.Role.RoleName)
+            </td>
+            <td>
+                <a class="btn btn-primary" asp-area="Admin" asp-controller="AdminUsers" asp-action="Edit" asp-route-id="@item.UserId">Chỉnh sửa</a> |
+                <a class="btn btn-warning" asp-area="Admin" asp-controller="AdminUsers" asp-action="Details" asp-route-id="@item.UserId">Chi tiết</a> |
+                @if (item.IsDeleted == 0)    {
+                    <a class="btn btn-danger" asp-area="Admin" asp-controller="AdminUsers" asp-action="Delete" asp-route-id="@item.UserId">Khóa</a>
+                }
+                 @if (item.IsDeleted == 1)    {
+                    <a class="btn btn-success" asp-area="Admin" asp-controller="AdminUsers" asp-action="Delete" asp-route-id="@item.UserId">Mở khóa</a>
+                }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@Html.PagedListPager((IPagedList) Model, page => Url.Action("Index", new {page = page }), 
+new PagedListRenderOptions {
+    LiElementClasses = new string[] {"page-item"},
+    PageClasses = new string[] {"page-link"}
+})

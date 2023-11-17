@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<OnlineShop.Models.Role>
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
 
 @{
     ViewData["Title"] = "Index";
@@ -17,7 +20,7 @@
 <h2>Quản lý quyền truy cập</h2>
 
 <p>
-    <a class="btn btn-success" asp-area="Admin" asp-controller="AdminRoles" asp-action="Create">Thêm</a>
+    <a class="btn btn-success" asp-area="Admin" asp-controller="AdminRoles" asp-action="Create">Thêm vai trò</a>
 </p>
 <table class="table">
     <thead>
@@ -61,3 +64,8 @@
         }
     </tbody>
 </table>
+@Html.PagedListPager((IPagedList) Model, page => Url.Action("Index", new {page = page }), 
+new PagedListRenderOptions {
+    LiElementClasses = new string[] {"page-item"},
+    PageClasses = new string[] {"page-link"}
+})

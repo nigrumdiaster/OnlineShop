@@ -1,0 +1,101 @@
+﻿@model OnlineShop.Models.User
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Chi tiết tài khoản</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Họ tên
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
+            ID
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IdCard)
+        </dd>
+        <dt>
+            Email
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            SĐT
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>
+            Trạng thái email
+        </dt>
+        @if(Model.IsEmailActive == 0)
+        {
+            <dd>Chưa kích hoạt</dd>
+        }
+        @if(Model.IsEmailActive == 1)
+        {
+            <dd>Đã kích hoạt</dd>
+        }
+        <dt>
+            Mật khẩu
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <dt>
+            Địa chỉ
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt>
+            Ảnh đại diện
+        </dt>
+        @if (Model.Avatar == null)
+        {
+            <dd>Chưa có ảnh</dd>
+        }
+        @if (Model.Avatar != null)
+        {
+            <dd>
+                @Html.DisplayFor(model => model.Avatar)
+            </dd>
+        }
+        <dt>
+            Ngày tạo
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            Trạng thái
+        </dt>
+        @if(Model.IsDeleted == 0)
+        {
+            <dd>Hoạt động</dd>
+        }
+        @if(Model.IsDeleted == 1)
+        {
+            <dd>Bị khóa</dd>
+        }
+        <dt>
+            Vai trò
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Role.RoleName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class = "btn btn-primary" asp-action="Edit" asp-route-id="@Model.UserId">Chỉnh sửa</a> |
+    <a asp-action="Index">Trở về danh sách</a>
+</div>

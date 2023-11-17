@@ -1,0 +1,120 @@
+﻿@model OnlineShop.Models.Product
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@if (Model.IsDeleted == 0)
+{
+    <h3>Khóa sản phẩm</h3>    
+}
+@if (Model.IsDeleted == 1)
+{
+    <h3>Mở khóa sản phẩm</h3>    
+}
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên sản phẩm
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+        <dt>
+            Mô tả
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Decription)
+        </dd>
+        <dt>
+            Giá
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            Giá khuyến mãi
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PromotionalPrice)
+        </dd>
+        <dt>
+            Số lượng
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt>
+            Đã bán
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sold)
+        </dd>
+        <dt>
+           Tình trạng
+        </dt>
+        @if (Model.IsActive == 0)
+        {
+            <dd>Ngừng bán</dd>
+        }
+        @if (Model.IsActive == 1)
+        {
+            <dd>Đang bán</dd>
+        }
+        <dt>
+            Ảnh sản phẩm
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+        <dt>
+            Đánh giá
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Rating) sao
+        </dd>
+        <dt>
+            Ngày tạo
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            Khả dụng
+        </dt>
+        @if (Model.IsDeleted == 0)
+        {
+            <dd>Khả dụng</dd>
+        }
+        @if (Model.IsDeleted == 1)
+        {
+            <dd>Bị khóa</dd>
+        }
+        <dt>
+            Danh mục
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>
+        <dt>
+            Style
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Style.StyleName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ProductId" />
+        @if (Model.IsDeleted == 0)
+        {
+            <input type="submit" value="Khóa" class="btn btn-danger" />
+        }
+        @if (Model.IsDeleted == 1)
+        {
+            <input type="submit" value="Mở khóa" class="btn btn-success" />
+        }
+        <a asp-action="Index">Trở về danh sách</a>
+    </form>
+</div>
