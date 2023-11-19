@@ -91,35 +91,39 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
         public decimal monthlyRevenue(int month, int year)
         {
-            if (_context.Orders.Where(n => n.Date.Value.Year == year && n.Date.Value.Month == month).Count() > 0)
+            if (year >= 1 && month >= 1 && month <= 12)
             {
-                var lst = from s1 in (from s1 in (from s1 in _context.Orders.Where(s1 => s1.IsPay == 1 
-                                                                                    && s1.IsDeleted == 0
-                                                                                    && s1.Date.Value.Month == month
-                                                                                    && s1.Date.Value.Year == year)
-                                                  join s2 in _context.OrderItems
-                                                  on s1.OrderId equals s2.OrderId
-                                                  select new
-                                                  {
-                                                      s1.OrderId,
-                                                      s1.Date,
-                                                      s2.ProductId,
-                                                      s2.Count
-                                                  })
-                                      join s2 in _context.Products
-                                      on s1.ProductId equals s2.ProductId
-                                      select new
-                                      {
-                                          s1.Count,
-                                          s2.PromotionalPrice
-                                      }
-                          )
-                          select new
-                          {
-                              revenue = s1.Count * s1.PromotionalPrice
-                          };
-                decimal monthlyRevenue = decimal.Parse(lst.Sum(n => n.revenue).ToString());
-                return monthlyRevenue;
+                 if (_context.Orders.Where(n => n.Date.Value.Year == year && n.Date.Value.Month == month).Count() > 0)
+                    {
+                        var lst = from s1 in (from s1 in (from s1 in _context.Orders.Where(s1 => s1.IsPay == 1 
+                                                                                            && s1.IsDeleted == 0
+                                                                                            && s1.Date.Value.Month == month
+                                                                                            && s1.Date.Value.Year == year)
+                                                          join s2 in _context.OrderItems
+                                                          on s1.OrderId equals s2.OrderId
+                                                          select new
+                                                          {
+                                                              s1.OrderId,
+                                                              s1.Date,
+                                                              s2.ProductId,
+                                                              s2.Count
+                                                          })
+                                              join s2 in _context.Products
+                                              on s1.ProductId equals s2.ProductId
+                                              select new
+                                              {
+                                                  s1.Count,
+                                                  s2.PromotionalPrice
+                                              }
+                                  )
+                                  select new
+                                  {
+                                      revenue = s1.Count * s1.PromotionalPrice
+                                  };
+                        decimal monthlyRevenue = decimal.Parse(lst.Sum(n => n.revenue).ToString());
+                        return monthlyRevenue;
+                    }
+                return 0;
             }
             return 0;
         }
