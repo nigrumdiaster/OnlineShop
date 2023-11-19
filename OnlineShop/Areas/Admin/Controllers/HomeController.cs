@@ -135,7 +135,9 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
         public decimal growth(int year)
         {
-            decimal growth = (totalRevenue(year - 1) - totalRevenue(year - 2)) / totalRevenue(year - 2) * 100;
+            decimal lastYear = totalRevenue(year - 1);
+            decimal theYearBeforeLast = totalRevenue(year - 2);
+            decimal growth = (lastYear - theYearBeforeLast) / theYearBeforeLast * 100;
             return growth;
         }
     }
