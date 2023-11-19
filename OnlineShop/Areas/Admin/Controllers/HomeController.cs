@@ -20,17 +20,44 @@ namespace OnlineShop.Areas.Admin.Controllers
         public IActionResult Index()
         {
             int year = DateTime.Now.Year;
-            ViewBag.totalRevenue = string.Format("{0:0,0} VND", totalRevenue(year));
-            ViewBag.averageRevenue = string.Format("{0:0,0} VND", totalRevenue(year)/12);
-            ViewBag.growth = string.Format("{0:0.00}", (totalRevenue(year - 1) - totalRevenue(year - 2)) / totalRevenue(year - 2) * 100);
+            int month = DateTime.Now.Month;
+            if(totalRevenue(year) != 0)
+            {
+                ViewBag.totalRevenue = string.Format("{0:0,0} VND", totalRevenue(year));
+                ViewBag.averageRevenue = string.Format("{0:0,0} VND", (totalRevenue(year) / 12));
+            }
+            else
+            {
+                ViewBag.totalRevenue = "0 VND";
+                ViewBag.averageRevenue = "0 VND";
+            }
+            if(growth(year) == 0)
+            {
+                ViewBag.growth = "0";
+            }
+            else 
+            {
+                ViewBag.growth = string.Format("{0:0.00}", growth(year));
+            }
             ViewBag.totalUsers = totalUsers();
             ViewBag.totalOrders = totalOrders();
-            List<string> montlyRevenueLst = new List<string>();
+            List<string> monthlyRevenueLst = new List<string>();
             for (int i = 1; i <=12; i++)
             {
-                montlyRevenueLst.Add(string.Format("{0:0,0} VND", monthlyRevenue(i, year)));
+                if(monthlyRevenue(i, year) == 0 && i <= month)
+                {
+                    monthlyRevenueLst.Add("0 VND");
+                }   
+                else if(monthlyRevenue(i, year) == 0 && i > month)
+                {
+                    monthlyRevenueLst.Add("Chưa có số liệu");
+                }
+                else
+                {
+                    monthlyRevenueLst.Add(string.Format("{0:0,0} VND", monthlyRevenue(i, year)));
+                }
             }
-            ViewBag.monthlyRevenue = montlyRevenueLst;
+            ViewBag.monthlyRevenue = monthlyRevenueLst;
             return View();
         }
         public decimal totalRevenue(int year)
@@ -59,7 +86,8 @@ namespace OnlineShop.Areas.Admin.Controllers
                       {
                           revenue = s1.Count * s1.PromotionalPrice
                       };
-            return decimal.Parse(lst.Sum(n => n.revenue).ToString());
+            decimal totalRevenue = decimal.Parse(lst.Sum(n => n.revenue).ToString());
+            return totalRevenue;
         }
         public decimal monthlyRevenue(int month, int year)
         {
@@ -90,17 +118,25 @@ namespace OnlineShop.Areas.Admin.Controllers
                           {
                               revenue = s1.Count * s1.PromotionalPrice
                           };
-                return decimal.Parse(lst.Sum(n => n.revenue).ToString());
+                decimal monthlyRevenue = decimal.Parse(lst.Sum(n => n.revenue).ToString());
+                return monthlyRevenue;
             }
             return 0;
         }
         public int totalUsers()
         {
-            return _context.Users.Count();
+            int totalUser = _context.Users.Count();
+            return totalUser;
         }
         public int totalOrders()
         {
-            return _context.Orders.Count();
+            int totalOrders = _context.Orders.Count();
+            return totalOrders;
+        }
+        public decimal growth(int year)
+        {
+            decimal growth = (totalRevenue(year - 1) - totalRevenue(year - 2)) / totalRevenue(year - 2) * 100;
+            return growth;
         }
     }
 }
