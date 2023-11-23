@@ -3,8 +3,8 @@
     ViewData["Title"] = "SignIn";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-        <main class="main-content" style="padding-bottom:80px;">
+   
+        <main class="main-content" style="padding-bottom:300px;">
             <div class="breadcrumb-area breadcrumb-height" data-bg-image="assets/images/breadcrumb/bg/1-1-1920x373.jpg">
                 <div class="container h-100">
                     <div class="row h-100" style="padding-left:400px;">
@@ -33,6 +33,13 @@
                                     </div>
                                 </div>
                             </form>
+                            <br />
+                            @if(ViewBag.mess != null)
+                            {
+                                <div class="alert alert-danger" role="alert" style="font-size:13px; text-align: center; vertical-align: middle;">
+                                    @ViewBag.mess
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

@@ -43,6 +43,7 @@ namespace OnlineShop.Controllers
                         return RedirectToAction("Index", "Home");
                     }
                 }
+                ViewBag.mess = "Email hoặc mật khẩu không chính xác";
             }
             return View();
         }
