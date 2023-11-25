@@ -34,12 +34,14 @@ namespace OnlineShop.Controllers
                                                         //&& n.Password == encryptPassword(user.Password)).ToList();
                 if (lst.Count() > 0)
                 {
-                    HttpContext.Session.SetInt32("userId", lst[0].UserId);
+                    HttpContext.Session.SetString("userId", lst[0].UserId.ToString());
                     if (lst[0].RoleId == 1)
                     {
+                        HttpContext.Session.SetString("roleName", "Admin");
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
                     }
                     else if (lst[0].RoleId == 2) {
+                        HttpContext.Session.SetString("roleName", "Customer");
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -65,6 +67,13 @@ namespace OnlineShop.Controllers
             password += key;
             var passwordBytes = Encoding.UTF8.GetBytes(password);
             return Convert.ToBase64String(passwordBytes);
+        }
+        public IActionResult SignOut()
+        {
+            HttpContext.Session.Clear();
+            HttpContext.Session.Remove("userId");
+            HttpContext.Session.Remove("roleName");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
