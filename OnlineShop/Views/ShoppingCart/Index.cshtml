@@ -1,4 +1,4 @@
-﻿@model List<OnlineShop.ViewModels.CartItemViewModel>
+﻿@model List<OnlineShop.Models.CartItem>
 
 @{
 	ViewData["Title"] = "Index";
@@ -56,14 +56,14 @@
 													</td>
 													<td class="product-thumbnail">
 														<a href="javascript:void(0)">
-															<img src="wwwroot/upload/images/product/@item.product.Image" alt="@item.product.ProductName">
+															<img src="wwwroot/upload/images/product/@item.Product.Image" alt="@item.Product.ProductName">
 														</a>
 													</td>
-													<td class="product-name"><a href="javascript:void(0)">@item.product.ProductName</a></td>
-													<td class="product-price"><span class="amount">@item.product.Price.ToString("#,##0") VNĐ</span></td>
+													<td class="product-name"><a href="javascript:void(0)">@item.Product.ProductName</a></td>
+													<td class="product-price"><span class="amount">@item.Product.Price.ToString("#,##0") VNĐ</span></td>
 													<td class="quantity">
 														<div class="cart-plus-minus">
-															<input class="cart-plus-minus-box" value="@item.amount" type="text">
+															<input class="cart-plus-minus-box" value="@item.Count" type="text">
 														</div>
 													</td>
 													<td class="product-subtotal"><span class="amount">@item.TotalMoney.ToString("#,##0") VNĐ</span></td>
